@@ -29,9 +29,9 @@ const Home = () => {
       <Header fetchData={fetchData} />
       <Description>
         <h4>
-          Ogólnie na ten moment plan taki, że robimy grilla nad Starą Odrą, a
-          potem wbijamy na mieszkanko na gierki. Trochę prowiantu zapewnię, ale
-          polecam sobie ogarnąć co tam chcesz ;)
+          Ogólnie na ten moment plan taki, że (21.08) robimy grilla nad Starą
+          Odrą, a potem wbijamy na mieszkanko na gierki. Trochę prowiantu
+          zapewnię, ale polecam sobie ogarnąć co tam chcesz ;)
         </h4>
         <h4>
           Zapewniam też nocleg każdemu kto potrzebuje, ale polecam wziąć coś na

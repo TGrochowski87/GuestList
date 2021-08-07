@@ -7,7 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
 
-import { addGuest, getSpecificGuest, updateGuest } from "../utils/Firebase";
+import {
+  addGuest,
+  getSpecificGuest,
+  updateGuest,
+  removeGuest,
+} from "../utils/Firebase";
 import CustomButton from "./CustomButton";
 
 const Header = ({ fetchData }) => {
@@ -19,6 +24,11 @@ const Header = ({ fetchData }) => {
       const guestId = localStorage.getItem("guestId");
       if (guestId !== null) {
         let guest = await (await getSpecificGuest(guestId)).data();
+
+        if (guest === undefined) {
+          localStorage.removeItem("guestId");
+          return;
+        }
 
         setGuestId(guestId);
         setInputText(guest.name);
@@ -45,15 +55,34 @@ const Header = ({ fetchData }) => {
     await fetchData();
   };
 
+  const removeHandler = async () => {
+    await removeGuest(guestId);
+    localStorage.removeItem("guestId");
+    setGuestId(null);
+    setInputText("");
+    await fetchData();
+  };
+
   return (
     <Jumbo>
       <h1>Wbijasz wariacie?</h1>
       <h2>Podpisz się tutaj</h2>
-      <input
-        type="text"
-        value={inputText}
-        onChange={(event) => setInputText(event.target.value)}
-      />
+      <div>
+        <input
+          type="text"
+          value={inputText}
+          onChange={(event) => setInputText(event.target.value)}
+        />
+        {guestId && (
+          <RemoveButton
+            onClick={() => {
+              removeHandler();
+            }}
+          >
+            Usuń wpis
+          </RemoveButton>
+        )}
+      </div>
       <ButtonSpace>
         <CustomButton
           icon={faCheckCircle}
@@ -110,6 +139,26 @@ const ButtonSpace = styled.div`
   @media screen and (max-width: 700px) {
     left: 20%;
     width: 60%;
+  }
+`;
+
+const RemoveButton = styled.button`
+  position: absolute;
+  width: 7.5rem;
+  padding: 0.6rem 0 0.6rem 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  background-color: #6c5a5e;
+  color: whitesmoke;
+  border: none;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+
+  @media screen and (max-width: 700px) {
+    position: unset;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0;
   }
 `;
 

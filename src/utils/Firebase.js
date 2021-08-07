@@ -40,3 +40,7 @@ export const updateGuest = async (guestId, guestName, answer) => {
     answer: answer,
   });
 };
+
+export const removeGuest = async (guestId) => {
+  return firestore.collection("guests").doc(guestId).delete();
+};
