@@ -36,10 +36,10 @@ const Header = ({ fetchData }) => {
     if (guestId !== null) {
       await updateGuest(guestId, inputText, answer);
     } else {
-      const guestId = uuidv4();
-      await addGuest(guestId, inputText, answer);
-      localStorage.setItem("guestId", guestId);
-      setInputText("");
+      const id = uuidv4();
+      await addGuest(id, inputText, answer);
+      localStorage.setItem("guestId", id);
+      setGuestId(id);
     }
 
     await fetchData();
