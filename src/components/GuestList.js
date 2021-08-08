@@ -38,6 +38,7 @@ const Guests = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
+  word-wrap: break-word;
 `;
 
 export default GuestList;

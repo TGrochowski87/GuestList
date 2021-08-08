@@ -73,7 +73,11 @@ const Header = ({ fetchData }) => {
         <input
           type="text"
           value={inputText}
-          onChange={(event) => setInputText(event.target.value)}
+          onChange={(event) => {
+            if (inputText.length < 25) {
+              setInputText(event.target.value);
+            }
+          }}
         />
         {guestId && (
           <RemoveButton
