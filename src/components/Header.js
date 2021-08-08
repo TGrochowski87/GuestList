@@ -38,16 +38,18 @@ const Header = ({ fetchData }) => {
   }, []);
 
   const submitHandler = async (answer) => {
-    if (inputText === "") {
+    const trimmedInput = inputText.trimStart().trimEnd();
+
+    if (trimmedInput === "") {
       alert("Nie testuj strony tylko się wpisz :|");
       return;
     }
 
     if (guestId !== null) {
-      await updateGuest(guestId, inputText, answer);
+      await updateGuest(guestId, trimmedInput, answer);
     } else {
       const id = uuidv4();
-      await addGuest(id, inputText, answer);
+      await addGuest(id, trimmedInput, answer);
       localStorage.setItem("guestId", id);
       setGuestId(id);
     }
